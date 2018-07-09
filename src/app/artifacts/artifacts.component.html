@@ -1,0 +1,134 @@
+<button type="button" class="btn btn-primary" style="margin-top: 30px;" *ngIf="completed" (click)="openAddArtifactModal(template)">
+  Add artifact
+</button>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Add artifact</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="cancelSave()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="col-sm-4">Artifact name:</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" [(ngModel)]="newArtifactEn.name"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-4">Artifact basic description:</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" [(ngModel)]="newArtifactEn.textBasic"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-4">Artifact advanced description:</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" [(ngModel)]="newArtifactEn.textAdvanced"/>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="col-sm-4">Artifact name:</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" [(ngModel)]="newArtifactRo.name"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-4">Artifact basic description:</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" [(ngModel)]="newArtifactRo.textBasic"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-4">Artifact advanced description:</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" [(ngModel)]="newArtifactRo.textAdvanced"/>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label class="col-sm-4">Artifact tag id:</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" [(ngModel)]="tagId"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" [disabled]="isAddButtonDisabled()" (click)="addArtifact()">Save</button>
+    <button type="button" class="btn btn-secondary" (click)="cancelSave()">Cancel</button>
+  </div>
+</ng-template>
+
+<ng-template #editArtifactTemplate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Edit artifact</h4>
+    <button type="button" class="close pull-right" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label class="col-sm-4">Artifact basic description:</label>
+          <div class="col-sm-8">
+            <textarea class="form-control" cols="20" rows="10" [(ngModel)]="selectedArtifact.textBasic"></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-4">Artifact advanced description:</label>
+          <div class="col-sm-8">
+            <textarea class="form-control" cols="20" rows="10" [(ngModel)]="selectedArtifact.textAdvanced"></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-4">Artifact tag id:</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" [(ngModel)]="selectedArtifact.tagId"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="editArtifact()">Save</button>
+    <button type="button" class="btn btn-secondary" (click)="cancelEdit()">Cancel</button>
+  </div>
+</ng-template>
+
+<table class="table table-striped table-bordered table-hover" *ngIf="showTable">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Basic description</th>
+    <th>Advanced description</th>
+    <th>Tag id</th>
+    <th>Edit</th>
+    <th>Delete</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let artifact of artifacts">
+    <td>{{artifact.name}}</td>
+    <td>{{artifact.textBasic}}</td>
+    <td>{{artifact.textAdvanced}}</td>
+    <td>{{artifact.tagId}}</td>
+    <td>
+      <button type="button" class="btn btn-primary" (click)="openEditModal(editArtifactTemplate, artifact)">Edit</button>
+    </td>
+    <td>
+      <button type="button" class="btn btn-primary" (click)="deleteArtifact(artifact.id)">Delete</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
